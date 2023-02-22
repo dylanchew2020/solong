@@ -6,88 +6,81 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/07 22:06:00 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 16:57:15 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include "so_long.h"
 
-#define IMG_SIZE 64
-
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	void	*mlx;
-	void	*mlx_window;
-	void	*img;
-	char	*relative_path;
-	int		img_size;
+	t_map	map;
+	t_chars	chars;
+	int		i;
+	int		win_width;
+	int		win_height;
 
-	relative_path = "./xpm/wall.xpm";
-	img_size = IMG_SIZE;
-	
-	mlx = mlx_init();
-	mlx_window = mlx_new_window(mlx, 1920, 1080, "So Long!");
-	img = mlx_xpm_file_to_image(mlx, relative_path, &img_size, &img_size);
-	mlx_put_image_to_window(mlx, mlx_window, img, 0, 0);
-	mlx_loop(mlx);
+	i = 0;
+	init_map(&map);
+	// printf("argc: %i\n", argc);
+	if (argc != 2)
+		exit_with_error(0, &map);
+	map.fd = open(argv[1], O_RDONLY);
+	if (map.fd < 0)
+		exit_with_error(1, &map);
+	read_map(map.fd, &map);
+	while (map.coord[i] != NULL)
+		printf("%s\n", map.coord[i++]);
+	printf("width %i, height %i\n", map.map_width, map.map_height);
+	win_width = map.map_width * 32;
+	win_height = map.map_height * 32;
+	map.mlx = mlx_init();
+	map.window = mlx_new_window(map.mlx, win_width, win_height, "So Long!");
+	mlx_loop_hook(map.mlx, create_map, &map);
+	mlx_key_hook(map.window, close_window, &map);
+	mlx_key_hook(map.window, move_char, &map);
+	mlx_loop(map.mlx);
+
+	//1920x1088 - 60x34 - 32x32pixels
+	/* init_map(&map);
+	map.path = "./resources/wall32x32.xpm";
+	map.img_size = 32;
+
+	map.mlx = mlx_init();
+	map.mlx_window = mlx_new_window(map.mlx, 1920, 1080, "So Long!");
+	map.wall_img = mlx_xpm_file_to_image(map.mlx, map.path, &map.img_size, &map.img_size);
+	mlx_put_image_to_window(map.mlx, map.mlx_window, map.wall_img, 0, 0);
+	mlx_loop(map.mlx); */
 	return (0);
 }
 
-// #include <mlx.h>
-// #include <stdio.h>
+void	free2d(char **array)
+{
+	char	**temp;
 
-// #define WIDTH 1920
-// #define HEIGHT 1080
-// #define MAZE_HEIGHT 5
-// #define MAZE_WIDTH 13
+	temp = array;
+	while (temp != NULL && *temp != NULL)
+	{
+		free(*temp);
+		++temp;
+	}
+	free(array);
+}
 
-// int	main(void)
-// {
-// 	void	*mlx;
-// 	void	*mlx_window;
-// 	void	*img;
-// 	char	*img_data;
-// 	int		bits_per_pixel;
-// 	int		size_line;
-// 	int		endian;
-// 	int		i, j;
-
-// 	int maze[MAZE_HEIGHT][MAZE_WIDTH] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-// 										 {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-// 										 {1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-// 										 {1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1},
-// 										 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
-// 	mlx = mlx_init();
-// 	mlx_window = mlx_new_window(mlx, WIDTH, HEIGHT, "Maze");
-// 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-// 	img_data = mlx_get_data_addr(img, &bits_per_pixel, &size_line, &endian);
-
-// 	i = 0;
-// 	while (i < HEIGHT)
-// 	{
-// 		j = 0;
-// 		while (j < WIDTH)
-// 		{
-// 			if (maze[i / (HEIGHT / MAZE_HEIGHT)][j / (WIDTH / MAZE_WIDTH)] == 1)
-// 			{
-// 				img_data[i * size_line + j * (bits_per_pixel / 8)] = 0;
-// 				img_data[i * size_line + j * (bits_per_pixel / 8) + 1] = 0;
-// 				img_data[i * size_line + j * (bits_per_pixel / 8) + 2] = 0;
-// 			}
-// 			else
-// 			{
-// 				img_data[i * size_line + j * (bits_per_pixel / 8)] = (char)255;
-// 				img_data[i * size_line + j * (bits_per_pixel / 8) + 1] = (char)255;
-// 				img_data[i * size_line + j * (bits_per_pixel / 8) + 2] = (char)255;
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	mlx_put_image_to_window(mlx, mlx_window, img, 0, 0);
-// 	mlx_loop(mlx);
-// 	return (0);
-// }
-
+void	exit_with_error(int code, t_map *map)
+{
+	if (code == 0)
+		write(1, "Incorrect Input parameter.\n", 28);
+	else if (code == 1)
+		write(1, "File Error!\n", 13);
+	else if (code == 2)
+		write(1, "Map Size Exceeded Limit!\n", 26);
+	else if (code == 3)
+		write(1, "Incorrect Map Size!\n", 21);
+	else if (code == 99)
+		write(1, "Gracefully Exited.\n", 20);
+	if (code > 1)
+		free2d(map->coord);
+	exit(0);
+}
 
