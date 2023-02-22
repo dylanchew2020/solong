@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 18:39:39 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 21:16:48 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	exit_with_error(int code, t_map *map)
 		write(1, "Map row mismatch!\n", 19);
 	else if (code == 4)
 		write(1, "Incorrect Map Content!\n", 24);
+	else if (code == 5)
+		write(1, "You Win!!!\n", 12);
 	else if (code == 99)
 		write(1, "Gracefully Exited.\n", 20);
 	if (code > 1)

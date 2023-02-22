@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 19:00:25 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 21:41:55 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_map
 	char	**coord;
 	int		map_width;
 	int		map_height;
+	int		movement_count;
+	int		points;
 	t_chars	chars;
 
 }	t_map;
@@ -80,5 +82,6 @@ void	chars_init(int i, int j, t_map *map);
 int		close_window(t_map *map);
 int		key_action(int keycode, t_map *map);
 void	pos_swap(int x, int y, t_map *map);
+void	count_action(t_map *map);
 
 #endif

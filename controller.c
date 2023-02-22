@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:08:30 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 18:59:40 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 21:44:58 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,17 @@ void	pos_swap(int x, int y, t_map *map)
 	char	*new_pos;
 	char	tmp;
 
-	*ori_pos = map->coord[map->chars.player_y][map->chars.player_x];
-	*new_pos = map->coord[map->chars.player_y + y][map->chars.player_x + x];
-	if (*new_pos != '1')
+	ori_pos = &map->coord[map->chars.player_y][map->chars.player_x];
+	new_pos = &map->coord[map->chars.player_y + y][map->chars.player_x + x];
+	if (*new_pos == 'C')
+	{
+		*new_pos = *ori_pos;
+		*ori_pos = '0';
+		map->points += 100;
+	}
+	else if (*new_pos == 'E')
+		exit_with_error(5, map);
+	else if (*new_pos == '0')
 	{
 		tmp = *ori_pos;
 		*ori_pos = *new_pos;
@@ -50,4 +58,20 @@ void	pos_swap(int x, int y, t_map *map)
 	}
 	else
 		write(1, "WALL!\n", 7);
+	count_action(map);
+}
+
+void	count_action(t_map *map)
+{
+	char	*count;
+	char	*point;
+
+	++map->movement_count;
+	count = ft_itoa_base(map->movement_count, BASE_DEC, BASE_DEC_C);
+	point = ft_itoa_base(map->points, BASE_DEC, BASE_DEC_C);
+	write(1, "Total Action: ", 14);
+	write(1, count, ft_strlen(count));
+	write(1, " | Total Points: ", 17);
+	write(1, point, ft_strlen(point));
+	write(1, "\n", 2);
 }

@@ -63,7 +63,7 @@ $(LIBFT):
 	@ $(MAKE) -C $(LIBFT_DIR)
 
 run:
-	@ ./so_long map/map1.ber
+	@ ./so_long map/map2.ber
 
 clean:
 	@ $(RM) $(OBJ)

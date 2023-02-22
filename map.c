@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 18:40:49 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 21:45:41 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	init_map(t_map *map)
 	map->coord = NULL;
 	map->map_width = 0;
 	map->map_height = 0;
+	map->movement_count = 0;
+	map->points = 0;
 }
 
 void	read_map(int fd, t_map *map)
