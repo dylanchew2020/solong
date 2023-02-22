@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 16:57:15 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 18:39:39 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char *argv[])
 {
 	t_map	map;
-	t_chars	chars;
 	int		i;
 	int		win_width;
 	int		win_height;
@@ -36,9 +35,9 @@ int	main(int argc, char *argv[])
 	win_height = map.map_height * 32;
 	map.mlx = mlx_init();
 	map.window = mlx_new_window(map.mlx, win_width, win_height, "So Long!");
+	mlx_hook(map.window, 17, 0, close_window, &map);
+	mlx_key_hook(map.window, key_action, &map);
 	mlx_loop_hook(map.mlx, create_map, &map);
-	mlx_key_hook(map.window, close_window, &map);
-	mlx_key_hook(map.window, move_char, &map);
 	mlx_loop(map.mlx);
 
 	//1920x1088 - 60x34 - 32x32pixels
@@ -76,7 +75,9 @@ void	exit_with_error(int code, t_map *map)
 	else if (code == 2)
 		write(1, "Map Size Exceeded Limit!\n", 26);
 	else if (code == 3)
-		write(1, "Incorrect Map Size!\n", 21);
+		write(1, "Map row mismatch!\n", 19);
+	else if (code == 4)
+		write(1, "Incorrect Map Content!\n", 24);
 	else if (code == 99)
 		write(1, "Gracefully Exited.\n", 20);
 	if (code > 1)

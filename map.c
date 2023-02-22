@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 16:53:15 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 18:40:49 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	read_map(int fd, t_map *map)
 
 	i = 0;
 	width_sampling = 0;
-	map->coord = ft_calloc(34, sizeof(char *));
+	map->coord = ft_calloc(WIN_HEIGHT / IMG_SIZE, sizeof(char *));
 	row = get_next_line(fd);
 	width_sampling = ft_strlen(row);
 	while (row)
@@ -77,29 +77,50 @@ int	create_map(t_map *map)
 
 	i = 0;
 	set_image(map);
+	// printf("player coord: x - %d | y = %d\n", map->chars.player_x, map->chars.player_y);
 	while (map->coord[i] != NULL)
 	{
 		j = 0;
-		while (map->coord[i][j] != '\0')
+		while (map->coord[i][j] != '\0' && map->coord[i][j] != '\n')
 		{
 			if (map->coord[i][j] == '1')
 				mlx_put_image_to_window(map->mlx, map->window,
 					map->wall_img, j * 32, i * 32);
-			else if (map->coord[i][j] == 'P')
-				mlx_put_image_to_window(map->mlx, map->window,
-					map->player_img, j * 32, i * 32);
-			else if (map->coord[i][j] == 'C')
-				mlx_put_image_to_window(map->mlx, map->window,
-					map->chest_img, j * 32, i * 32);
-			else if (map->coord[i][j] == 'E')
-				mlx_put_image_to_window(map->mlx, map->window,
-					map->exit_img, j * 32, i * 32);
-			else
+			else if (map->coord[i][j] == '0')
 				mlx_put_image_to_window(map->mlx, map->window,
 					map->floor_img, j * 32, i * 32);
+			else
+				chars_init(i, j, map);
 			++j;
 		}
 		++i;
 	}
 	return (0);
+}
+
+void	chars_init(int i, int j, t_map *map)
+{
+	if (map->coord[i][j] == 'P')
+	{
+		mlx_put_image_to_window(map->mlx, map->window,
+			map->player_img, j * 32, i * 32);
+		map->chars.player_x = j;
+		map->chars.player_y = i;
+	}
+	else if (map->coord[i][j] == 'C')
+	{
+		mlx_put_image_to_window(map->mlx, map->window,
+			map->chest_img, j * 32, i * 32);
+		map->chars.collect_x = j;
+		map->chars.collect_y = i;
+	}
+	else if (map->coord[i][j] == 'E')
+	{
+		mlx_put_image_to_window(map->mlx, map->window,
+			map->exit_img, j * 32, i * 32);
+		map->chars.exit_x = j;
+		map->chars.exit_y = i;
+	}
+	else
+		exit_with_error(4, map);
 }

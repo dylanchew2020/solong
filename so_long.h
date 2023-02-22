@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 16:57:39 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/22 19:00:25 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # define CHEST "./resources/cherry32x32.xpm"
 # define EXIT "./resources/exit32x32.xpm"
 # define FLOOR "./resources/floor32x32.xpm"
+
+//KEYCODES
+# define KEY_UP_W 13
+# define KEY_DOWN_S 1
+# define KEY_LEFT_A 0
+# define KEY_RIGHT_D 2
+# define KEY_ESC 53
 
 typedef struct s_chars
 {
@@ -59,15 +66,19 @@ typedef struct s_map
 //GENERAL FUNCTIONS
 void	free2d(char **array);
 void	exit_with_error(int code, t_map *map);
+int		key_action(int keycode, t_map *map);
 
 //MAP FUNCTIONS
 void	init_map(t_map *map);
 void	read_map(int fd, t_map *map);
 void	set_image(t_map *map);
 int		create_map(t_map *map);
-int		close_window(int keycode, t_map *map);
+void	chars_init(int i, int j, t_map *map);
+
 
 //CONTROLLER FUNCTIONS
-int		move_char(int keycode, t_map *map);
+int		close_window(t_map *map);
+int		key_action(int keycode, t_map *map);
+void	pos_swap(int x, int y, t_map *map);
 
 #endif
