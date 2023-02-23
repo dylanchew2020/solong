@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 17:06:28 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 19:15:30 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,10 @@ void	pos_swap(int x, int y, t_map *map);
 void	count_action(t_map *map);
 
 //VALIDATION FUNCTIONS
+void	validate(t_map *map);
+int		validate_init(int i, int j, t_map *map);
 void	validate_chars(t_map *map);
 void	validate_wall(int x, int y, t_map *map);
+void	validate_path(char **tmp_map, t_map *map);
 
 #endif

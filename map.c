@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 16:54:35 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 18:02:31 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,4 @@ void	chars_init(int i, int j, t_map *map)
 		map->chars.exit_x = j;
 		map->chars.exit_y = i;
 	}
-	else
-		exit_with_error(4, map);
 }

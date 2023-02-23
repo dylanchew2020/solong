@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 17:16:06 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 18:27:16 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	if (map.fd < 0)
 		exit_with_error(1, &map);
 	read_map(map.fd, &map);
-	validate_chars(&map);
+	validate(&map);
 	while (map.coord[i] != NULL)
 		printf("%s\n", map.coord[i++]);
 	printf("width %i, height %i\n", map.map_width, map.map_height);
@@ -80,12 +80,13 @@ void	exit_with_error(int code, t_map *map)
 	else if (code == 7)
 		write(1, "Error\nMap Size Exceeded Limit!\n", 32);
 	else if (code == 8)
+		write(1, "Error\nNo Valid Path to Exit\n", 29);
+	else if (code == 9)
 		write(1, "You Win!!!\n", 12);
 	else if (code == 99)
 		write(1, "Gracefully Exited.\n", 20);
 	if (code > 2)
 		free2d(map->coord);
-	// system("leaks so_long");
 	exit(0);
 }
 
