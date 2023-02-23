@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 15:52:23 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 16:54:35 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,37 @@ void	init_map(t_map *map)
 void	read_map(int fd, t_map *map)
 {
 	char	*row;
+	char	*gnl;
 	int		i;
 	int		width_sampling;
 
 	i = 0;
 	width_sampling = 0;
 	map->coord = ft_calloc(WIN_HEIGHT / IMG_SIZE, sizeof(char *));
-	row = get_next_line(fd);
-	if (ft_strlen(row) - 1 > WIN_WIDTH / IMG_SIZE)
+	if (!map->coord)
 		exit_with_error(2, map);
+	gnl = get_next_line(fd);
+	row = ft_strtrim(gnl, "\n");
+	if (ft_strlen(row) > WIN_WIDTH / IMG_SIZE)
+		exit_with_error(7, map);
 	width_sampling = ft_strlen(row);
 	while (row)
 	{
 		if (i == WIN_HEIGHT / IMG_SIZE)
-			exit_with_error(2, map);
+			exit_with_error(7, map);
 		map->coord[i] = row;
-		row = get_next_line(fd);
+		free(gnl);
+		gnl = get_next_line(fd);
+		row = ft_strtrim(gnl, "\n");
 		if (row == NULL)
 			break ;
 		if (ft_strlen(row) != width_sampling)
 			exit_with_error(3, map);
 		++i;
 	}
-	map->map_width = width_sampling - 1;
+	free(gnl);
+	map->map_width = width_sampling;
 	map->map_height = i + 1;
-}
-
-void	set_image(t_map *map)
-{
-	map->wall_img = mlx_xpm_file_to_image(map->mlx, WALL,
-			&map->img_size, &map->img_size);
-	map->player_img = mlx_xpm_file_to_image(map->mlx, PLAYER,
-			&map->img_size, &map->img_size);
-	map->chest_img = mlx_xpm_file_to_image(map->mlx, CHEST,
-			&map->img_size, &map->img_size);
-	map->exit_img = mlx_xpm_file_to_image(map->mlx, EXIT,
-			&map->img_size, &map->img_size);
-	map->floor_img = mlx_xpm_file_to_image(map->mlx, FLOOR,
-			&map->img_size, &map->img_size);
 }
 
 int	create_map(t_map *map)
@@ -84,7 +77,7 @@ int	create_map(t_map *map)
 	while (map->coord[i] != NULL)
 	{
 		j = 0;
-		while (map->coord[i][j] != '\0' && map->coord[i][j] != '\n')
+		while (map->coord[i][j] != '\0')
 		{
 			if (map->coord[i][j] == '1')
 				mlx_put_image_to_window(map->mlx, map->window,
