@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:08:30 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 21:44:58 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 15:06:31 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	pos_swap(int x, int y, t_map *map)
 		map->points += 100;
 	}
 	else if (*new_pos == 'E')
-		exit_with_error(5, map);
+		exit_with_error(9, map);
 	else if (*new_pos == '0')
 	{
 		tmp = *ori_pos;

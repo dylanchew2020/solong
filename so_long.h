@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 21:41:55 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 15:17:13 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ typedef struct s_chars
 {
 	int	player_x;
 	int	player_y;
+	int	p_count;
 	int	exit_x;
 	int	exit_y;
+	int	e_count;
 	int	collect_x;
 	int	collect_y;
+	int	c_count;
 }	t_chars;
 
 typedef struct s_map
@@ -65,12 +68,12 @@ typedef struct s_map
 
 }	t_map;
 
-//GENERAL FUNCTIONS
+// GENERAL FUNCTIONS
+void	create_window(t_map *map);
 void	free2d(char **array);
 void	exit_with_error(int code, t_map *map);
-int		key_action(int keycode, t_map *map);
 
-//MAP FUNCTIONS
+// MAP FUNCTIONS
 void	init_map(t_map *map);
 void	read_map(int fd, t_map *map);
 void	set_image(t_map *map);
@@ -78,10 +81,13 @@ int		create_map(t_map *map);
 void	chars_init(int i, int j, t_map *map);
 
 
-//CONTROLLER FUNCTIONS
+// CONTROLLER FUNCTIONS
 int		close_window(t_map *map);
 int		key_action(int keycode, t_map *map);
 void	pos_swap(int x, int y, t_map *map);
 void	count_action(t_map *map);
+
+//VALIDATION FUNCTIONS
+void	validate_chars(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/22 21:45:41 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/23 15:52:23 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	read_map(int fd, t_map *map)
 	width_sampling = 0;
 	map->coord = ft_calloc(WIN_HEIGHT / IMG_SIZE, sizeof(char *));
 	row = get_next_line(fd);
+	if (ft_strlen(row) - 1 > WIN_WIDTH / IMG_SIZE)
+		exit_with_error(2, map);
 	width_sampling = ft_strlen(row);
 	while (row)
 	{
-		if (i > 34)
+		if (i == WIN_HEIGHT / IMG_SIZE)
 			exit_with_error(2, map);
 		map->coord[i] = row;
 		row = get_next_line(fd);
@@ -79,7 +81,6 @@ int	create_map(t_map *map)
 
 	i = 0;
 	set_image(map);
-	// printf("player coord: x - %d | y = %d\n", map->chars.player_x, map->chars.player_y);
 	while (map->coord[i] != NULL)
 	{
 		j = 0;

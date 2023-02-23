@@ -15,7 +15,7 @@ NAME	=	so_long
 
 # SOURCE CODE
 SRC_DIR = ./
-SRC	=	so_long.c map.c controller.c 
+SRC	=	so_long.c map.c controller.c validation.c
 OBJ_DIR = ./obj/
 OBJ	=	$(SRC:%.c=$(OBJ_DIR)%.o)
 
@@ -62,9 +62,30 @@ $(OBJ_DIR):
 $(LIBFT):
 	@ $(MAKE) -C $(LIBFT_DIR)
 
-run:
+map1:
+	@ ./so_long map/map1.ber
+	
+map2:
 	@ ./so_long map/map2.ber
 
+map3:
+	@ ./so_long map/map3.ber
+
+map4:
+	@ ./so_long map/map4.ber
+
+map5:
+	@ ./so_long map/map5.ber
+
+widemap:
+	@ ./so_long map/widemap.ber
+	
+highmap:
+	@ ./so_long map/highmap.ber
+	
+maxmap:
+	@ ./so_long map/maxmap.ber
+	
 clean:
 	@ $(RM) $(OBJ)
 	@ $(RMDIR) $(OBJ_DIR)
