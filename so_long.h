@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 19:15:30 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 15:15:25 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_chars
 	int	player_x;
 	int	player_y;
 	int	p_count;
+	int	vp_x;
+	int	vp_y;
 	int	exit_x;
 	int	exit_y;
 	int	e_count;
@@ -80,7 +82,6 @@ void	read_map(int fd, t_map *map);
 int		create_map(t_map *map);
 void	chars_init(int i, int j, t_map *map);
 
-
 // CONTROLLER FUNCTIONS
 int		close_window(t_map *map);
 int		key_action(int keycode, t_map *map);
@@ -90,8 +91,8 @@ void	count_action(t_map *map);
 //VALIDATION FUNCTIONS
 void	validate(t_map *map);
 int		validate_init(int i, int j, t_map *map);
-void	validate_chars(t_map *map);
 void	validate_wall(int x, int y, t_map *map);
 void	validate_path(char **tmp_map, t_map *map);
+void	collapse(int i, int j, char **tmp_map);
 
 #endif

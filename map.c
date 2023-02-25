@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/23 18:02:31 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 15:26:22 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	read_map(int fd, t_map *map)
 
 	i = 0;
 	width_sampling = 0;
-	map->coord = ft_calloc(WIN_HEIGHT / IMG_SIZE, sizeof(char *));
+	map->coord = ft_calloc((WIN_HEIGHT / IMG_SIZE), sizeof(char *));
 	if (!map->coord)
 		exit_with_error(2, map);
 	gnl = get_next_line(fd);
