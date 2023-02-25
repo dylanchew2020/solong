@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 15:15:25 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 16:31:55 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ typedef struct s_chars
 {
 	int	player_x;
 	int	player_y;
-	int	p_count;
+	int	p_cnt;
 	int	vp_x;
 	int	vp_y;
 	int	exit_x;
 	int	exit_y;
-	int	e_count;
+	int	e_cnt;
 	int	collect_x;
 	int	collect_y;
-	int	c_count;
+	int	c_cnt;
 }	t_chars;
 
 typedef struct s_map
@@ -62,10 +62,12 @@ typedef struct s_map
 	int		img_size;
 	int		fd;
 	char	**coord;
+	int		height_count;
 	int		map_width;
 	int		map_height;
 	int		movement_count;
 	int		points;
+	char	**tmp;
 	t_chars	chars;
 
 }	t_map;
@@ -83,6 +85,7 @@ int		create_map(t_map *map);
 void	chars_init(int i, int j, t_map *map);
 
 // CONTROLLER FUNCTIONS
+void	init_chars(t_map *map);
 int		close_window(t_map *map);
 int		key_action(int keycode, t_map *map);
 void	pos_swap(int x, int y, t_map *map);
@@ -92,7 +95,7 @@ void	count_action(t_map *map);
 void	validate(t_map *map);
 int		validate_init(int i, int j, t_map *map);
 void	validate_wall(int x, int y, t_map *map);
-void	validate_path(char **tmp_map, t_map *map);
-void	collapse(int i, int j, char **tmp_map);
+void	validate_path(t_map *map);
+void	collapse(int i, int j, t_map *map);
 
 #endif

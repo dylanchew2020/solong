@@ -62,6 +62,9 @@ $(OBJ_DIR):
 $(LIBFT):
 	@ $(MAKE) -C $(LIBFT_DIR)
 
+map0:
+	@ ./so_long map/map0.ber
+
 map1:
 	@ ./so_long map/map1.ber
 	

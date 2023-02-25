@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 15:26:22 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 16:36:59 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,46 +25,40 @@ void	init_map(t_map *map)
 	map->img_size = IMG_SIZE;
 	map->fd = 0;
 	map->coord = NULL;
+	map->height_count = 0;
 	map->map_width = 0;
 	map->map_height = 0;
 	map->movement_count = 0;
 	map->points = 0;
+	map->tmp = NULL;
 }
 
 void	read_map(int fd, t_map *map)
 {
-	char	*row;
 	char	*gnl;
-	int		i;
-	int		width_sampling;
 
-	i = 0;
-	width_sampling = 0;
-	map->coord = ft_calloc((WIN_HEIGHT / IMG_SIZE), sizeof(char *));
+	map->coord = ft_calloc((WIN_HEIGHT / IMG_SIZE) + 1, sizeof(char *));
 	if (!map->coord)
 		exit_with_error(2, map);
 	gnl = get_next_line(fd);
-	row = ft_strtrim(gnl, "\n");
-	if (ft_strlen(row) > WIN_WIDTH / IMG_SIZE)
-		exit_with_error(7, map);
-	width_sampling = ft_strlen(row);
-	while (row)
-	{
-		if (i == WIN_HEIGHT / IMG_SIZE)
-			exit_with_error(7, map);
-		map->coord[i] = row;
-		free(gnl);
-		gnl = get_next_line(fd);
-		row = ft_strtrim(gnl, "\n");
-		if (row == NULL)
-			break ;
-		if (ft_strlen(row) != width_sampling)
-			exit_with_error(3, map);
-		++i;
-	}
+	map->coord[map->height_count] = ft_strtrim(gnl, "\n");
 	free(gnl);
-	map->map_width = width_sampling;
-	map->map_height = i + 1;
+	if (ft_strlen(map->coord[map->height_count]) > WIN_WIDTH / IMG_SIZE)
+		exit_with_error(7, map);
+	map->map_width = ft_strlen(map->coord[map->height_count]);
+	while (map->coord[map->height_count++])
+	{
+		if (map->height_count > WIN_HEIGHT / IMG_SIZE)
+			exit_with_error(7, map);
+		gnl = get_next_line(fd);
+		if (gnl == NULL)
+			break ;
+		map->coord[map->height_count] = ft_strtrim(gnl, "\n");
+		free(gnl);
+		if (ft_strlen(map->coord[map->height_count]) != map->map_width)
+			exit_with_error(3, map);
+	}
+	map->map_height = map->height_count;
 }
 
 int	create_map(t_map *map)

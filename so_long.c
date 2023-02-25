@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 15:26:44 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 16:58:45 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char *argv[])
 
 	i = 0;
 	init_map(&map);
+	init_chars(&map);
 	if (argc != 2)
 		exit_with_error(0, &map);
 	map.fd = open(argv[1], O_RDONLY);

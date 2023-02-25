@@ -6,11 +6,26 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:08:30 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 15:25:51 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/25 16:58:59 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	init_chars(t_map *map)
+{
+	map->chars.player_x = 0;
+	map->chars.player_y = 0;
+	map->chars.p_cnt = 0;
+	map->chars.vp_x = 0;
+	map->chars.vp_y = 0;
+	map->chars.exit_x = 0;
+	map->chars.exit_y = 0;
+	map->chars.e_cnt = 0;
+	map->chars.collect_x = 0;
+	map->chars.collect_y = 0;
+	map->chars.c_cnt = 0;
+}
 
 int	close_window(t_map *map)
 {
@@ -28,7 +43,7 @@ int	key_action(int keycode, t_map *map)
 	else if (keycode == KEY_DOWN_S)
 		pos_swap(0, 1, map);
 	else if (keycode == KEY_LEFT_A)
-		pos_swap(-1, 0, map);	
+		pos_swap(-1, 0, map);
 	else if (keycode == KEY_RIGHT_D)
 		pos_swap(1, 0, map);
 	return (0);
