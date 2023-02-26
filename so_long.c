@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 17:02:03 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 12:25:10 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,27 @@ void	free2d(char **array)
 void	exit_with_error(int code, t_map *map)
 {
 	if (code == 0)
-		write(1, "Error\nIncorrect Input Parameter.\n", 34);
+		write(1, "\e[1;31mError\nIncorrect Input Parameter.\e[0m\n", 45);
 	else if (code == 1)
-		write(1, "Error\nFile Error!\n", 19);
+		write(1, "\e[1;31mError\nFile Error!\e[0m\n", 30);
 	else if (code == 2)
-		write(1, "Error\nMemory Allocation Failed\n", 32);
+		write(1, "\e[1;31mError\nMemory Allocation Failed.\e[0m\n", 44);
 	else if (code == 3)
-		write(1, "Error\nMap Not Rectangular!\n", 28);
+		write(1, "\e[1;31mError\nMap Not Rectangular!\e[0m\n", 39);
 	else if (code == 4)
-		write(1, "Error\nMap Contains Prohibited Characters!\n", 43);
+		write(1, "\e[1;31mError\nMap Contains Prohibited Characters!\e[0m\n", 54);
 	else if (code == 5)
-		write(1, "Error\nInvalid No. of Characters\n", 33);
+		write(1, "\e[1;31mError\nInvalid No. of Characters!\e[0m\n", 45);
 	else if (code == 6)
-		write(1, "Error\nMap Not Enclosed!\n", 25);
+		write(1, "\e[1;31mError\nMap Not Enclosed!\e[0m\n", 36);
 	else if (code == 7)
-		write(1, "Error\nMap Size Exceeded Limit!\n", 32);
+		write(1, "\e[1;31mError\nMap Size Exceeded Limit! Max: 60x34\e[0m\n", 54);
 	else if (code == 8)
-		write(1, "Error\nNo Valid Path to Collectible or Exit\n", 44);
+		write(1, "\e[1;31mError\nNo Valid Path to Collectible or Exit\e[0m\n", 55);
 	else if (code == 9)
-		write(1, "You Win!!!\n", 12);
+		write(1, "\e[1;32mYou Win!!!\e[0m\n", 23);
 	else if (code == 99)
-		write(1, "Gracefully Exited.\n", 20);
+		write(1, "\e[1;33mGracefully Exited.\e[0m\n", 31);
 	if (code > 2)
 		free2d(map->coord);
 	exit(0);
