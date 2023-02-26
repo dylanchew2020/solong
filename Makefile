@@ -33,7 +33,7 @@ INC		=	$(INC_DIR)
 
 # COMPILATION
 CC			=	gcc
-# CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 
 # REMOVE FILES OR DIRECTORIES
 RM = rm -f
@@ -49,7 +49,7 @@ _INFO		=	[$(YELLOW)INFO$(RESET)]
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
-	@ ${CC} -Ilibft -lmlx -framework OpenGL -framework AppKit ${OBJ} ${LIB} -o $@ #-fsanitize=address
+	@ ${CC} $(CFLAGS) -Ilibft -lmlx -framework OpenGL -framework AppKit ${OBJ} ${LIB} -o $@ #-fsanitize=address
 	@ printf "$(_SUCCESS) Window startup\n\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   so_long_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/26 12:33:57 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 19:10:06 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	read_map(int fd, t_map *map)
 			break ;
 		map->coord[map->height_count] = ft_strtrim(gnl, "\n");
 		free(gnl);
-		if (ft_strlen(map->coord[map->height_count]) != map->map_width)
+		if ((int)ft_strlen(map->coord[map->height_count]) != map->map_width)
 			exit_with_error(3, map);
 	}
 	map->map_height = map->height_count;
