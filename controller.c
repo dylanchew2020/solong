@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:08:30 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 16:58:59 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 12:00:51 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,23 @@ void	pos_swap(int x, int y, t_map *map)
 
 	ori_pos = &map->coord[map->chars.player_y][map->chars.player_x];
 	new_pos = &map->coord[map->chars.player_y + y][map->chars.player_x + x];
-	if (*new_pos == 'C')
-	{
-		*new_pos = *ori_pos;
-		*ori_pos = '0';
-		map->points += 100;
-	}
-	else if (*new_pos == 'E')
-		exit_with_error(9, map);
-	else if (*new_pos == '0')
+	if (*new_pos == '0')
 	{
 		tmp = *ori_pos;
 		*ori_pos = *new_pos;
 		*new_pos = tmp;
 	}
-	else
+	else if (*new_pos == 'C')
+	{
+		*new_pos = *ori_pos;
+		*ori_pos = '0';
+		--map->chars.c_cnt;
+		map->points += 100;
+	}
+	else if (*new_pos == '1' || (*new_pos == 'E' && map->chars.c_cnt != 0))
 		write(1, "WALL!\n", 7);
+	else if (*new_pos == 'E' && map->chars.c_cnt == 0)
+		exit_with_error(9, map);
 	count_action(map);
 }
 

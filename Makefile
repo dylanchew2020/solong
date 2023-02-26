@@ -49,11 +49,11 @@ _INFO		=	[$(YELLOW)INFO$(RESET)]
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
-	${CC} -Ilibft -lmlx -framework OpenGL -framework AppKit ${OBJ} ${LIB} -o $@ -fsanitize=address
-	@printf "$(_SUCCESS) Window startup\n\n"
+	@ ${CC} -Ilibft -lmlx -framework OpenGL -framework AppKit ${OBJ} ${LIB} -o $@ #-fsanitize=address
+	@ printf "$(_SUCCESS) Window startup\n\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	@ $(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(OBJ_DIR):
 	@ mkdir -p $(OBJ_DIR)
