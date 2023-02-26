@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/26 19:09:12 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 19:19:27 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <mlx.h>
 # include "libft/includes/libft.h"
 # include "libft/includes/get_next_line.h"
-# include <stdio.h>
 
 # define IMG_SIZE 32
 # define WIN_WIDTH 1920
