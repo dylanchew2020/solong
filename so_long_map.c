@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:31:56 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/25 16:36:59 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 12:33:57 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ void	read_map(int fd, t_map *map)
 	map->map_height = map->height_count;
 }
 
+void	set_image(t_map *map)
+{
+	map->wall_img = mlx_xpm_file_to_image(map->mlx, WALL,
+			&map->img_size, &map->img_size);
+	map->player_img = mlx_xpm_file_to_image(map->mlx, PLAYER,
+			&map->img_size, &map->img_size);
+	map->chest_img = mlx_xpm_file_to_image(map->mlx, CHEST,
+			&map->img_size, &map->img_size);
+	map->exit_img = mlx_xpm_file_to_image(map->mlx, EXIT,
+			&map->img_size, &map->img_size);
+	map->floor_img = mlx_xpm_file_to_image(map->mlx, FLOOR,
+			&map->img_size, &map->img_size);
+}
+
 int	create_map(t_map *map)
 {
 	int		i;
@@ -80,7 +94,7 @@ int	create_map(t_map *map)
 				mlx_put_image_to_window(map->mlx, map->window,
 					map->floor_img, j * 32, i * 32);
 			else
-				chars_init(i, j, map);
+				create_chars(i, j, map);
 			++j;
 		}
 		++i;
@@ -88,7 +102,7 @@ int	create_map(t_map *map)
 	return (0);
 }
 
-void	chars_init(int i, int j, t_map *map)
+void	create_chars(int i, int j, t_map *map)
 {
 	if (map->coord[i][j] == 'P')
 	{

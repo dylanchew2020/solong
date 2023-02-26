@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 15:02:12 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/26 12:25:10 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 12:32:45 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,4 @@ void	exit_with_error(int code, t_map *map)
 	if (code > 2)
 		free2d(map->coord);
 	exit(0);
-}
-
-void	set_image(t_map *map)
-{
-	map->wall_img = mlx_xpm_file_to_image(map->mlx, WALL,
-			&map->img_size, &map->img_size);
-	map->player_img = mlx_xpm_file_to_image(map->mlx, PLAYER,
-			&map->img_size, &map->img_size);
-	map->chest_img = mlx_xpm_file_to_image(map->mlx, CHEST,
-			&map->img_size, &map->img_size);
-	map->exit_img = mlx_xpm_file_to_image(map->mlx, EXIT,
-			&map->img_size, &map->img_size);
-	map->floor_img = mlx_xpm_file_to_image(map->mlx, FLOOR,
-			&map->img_size, &map->img_size);
 }

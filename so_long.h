@@ -6,7 +6,7 @@
 /*   By: lchew <lchew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:51:37 by lchew             #+#    #+#             */
-/*   Updated: 2023/02/26 11:51:07 by lchew            ###   ########.fr       */
+/*   Updated: 2023/02/26 12:34:03 by lchew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ typedef struct s_map
 void	create_window(t_map *map);
 void	free2d(char **array);
 void	exit_with_error(int code, t_map *map);
-void	set_image(t_map *map);
 
 // MAP FUNCTIONS
 void	init_map(t_map *map);
 void	read_map(int fd, t_map *map);
+void	set_image(t_map *map);
 int		create_map(t_map *map);
-void	chars_init(int i, int j, t_map *map);
+void	create_chars(int i, int j, t_map *map);
 
 // CONTROLLER FUNCTIONS
 void	init_chars(t_map *map);
@@ -91,7 +91,7 @@ int		key_action(int keycode, t_map *map);
 void	pos_swap(int x, int y, t_map *map);
 void	count_action(t_map *map);
 
-//VALIDATION FUNCTIONS
+// VALIDATION FUNCTIONS
 void	validate(t_map *map);
 int		validate_init(int i, int j, t_map *map);
 void	validate_wall(int x, int y, t_map *map);

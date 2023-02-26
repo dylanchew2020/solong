@@ -15,7 +15,7 @@ NAME	=	so_long
 
 # SOURCE CODE
 SRC_DIR = ./
-SRC	=	so_long.c map.c controller.c validation.c
+SRC	=	so_long.c so_long_map.c so_long_controller.c so_long_validation.c
 OBJ_DIR = ./obj/
 OBJ	=	$(SRC:%.c=$(OBJ_DIR)%.o)
 
